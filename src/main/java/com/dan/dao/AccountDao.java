@@ -1,8 +1,8 @@
 package com.dan.dao;
 
 import com.dan.bean.Account;
-import com.dan.bean.Emp;
-import org.apache.ibatis.annotations.Insert;
+
+import java.util.ArrayList;
 
 /**
  * @author lizhenyang
@@ -12,4 +12,6 @@ import org.apache.ibatis.annotations.Insert;
 public interface AccountDao {
 
     Account selectById(Integer id);
+
+    ArrayList<Account> selectAll();
 }

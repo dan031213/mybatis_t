@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * @author lizhenyang
@@ -42,12 +43,24 @@ public class MyTest {
     }
 
     @Test
-    public void testSave(){
-        SqlSession sqlSession=sqlSessionFactory.openSession();
+    public void selectAllAccount() {
+
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        AccountDao mapper = sqlSession.getMapper(AccountDao.class);
+        System.out.println(mapper);
+//        Emp emp = mapper.selectEmpByEmpno(1);
+        ArrayList arrayList = mapper.selectAll();
+        System.out.println(arrayList);
+        sqlSession.close();
+    }
+
+    @Test
+    public void testSave() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
         EmpDao mapper = sqlSession.getMapper(EmpDao.class);
         Emp emp1 = new Emp();
-        emp1.setEmpno(3);
-        emp1.setEname("zhangsan3");
+        emp1.setEmpno(5);
+        emp1.setEname("zhangsan5");
         System.out.println(mapper.save(emp1));
         sqlSession.close();
     }
@@ -58,7 +71,7 @@ public class MyTest {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         AccountDao mapper = sqlSession.getMapper(AccountDao.class);
         System.out.println(mapper);
-        Account account = mapper.selectById(1);
+        Account account = mapper.selectById(2);
         System.out.println(account);
         sqlSession.close();
     }

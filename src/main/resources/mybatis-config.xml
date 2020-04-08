@@ -5,10 +5,22 @@
 <configuration>
     <properties resource="db.properties"></properties>
     <settings>
+        <!--开启驼峰-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
+
+    <!--    别名-->
+    <typeAliases>
+        <!--        <typeAlias type="com.dan.bean.Emp" alias="emp"></typeAlias>-->
+        <package name="com.dan.bean"/>
+    </typeAliases>
+
+
+    <!--    开发环境  default 选择哪个环境作为运行时环境-->
     <environments default="development">
+        <!--        配置具体的环境属性-->
         <environment id="development">
+            <!--            事务管理器-->
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="${driver}"/>
@@ -18,8 +30,19 @@
             </dataSource>
         </environment>
     </environments>
+
+    <!--    用来讲mapper映射文件引入到配置文件中，
+    resource  项目的类路径下加载对应的资源文件
+    url 从本地磁盘目录或者网络中引入资源文件
+    class  直接引入类的完全限定名，可以用注解的方式来实现
+
+    -->
     <mappers>
-        <mapper resource="EmpDao.xml"/>
-        <mapper resource="AccountDao.xml"/>
+<!--        <mapper resource="EmpDao.xml"/>-->
+<!--        <mapper resource="AccountDao.xml"/>-->
+
+<!--        多个选择，资源路径要与dao的路径一直，手动创建一直的路径-->
+        <package name="com.dan.dao"/>
+<!--        <mapper class="com.dan.dao.EmpDao"></mapper>-->
     </mappers>
 </configuration>

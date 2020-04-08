@@ -3,6 +3,8 @@ package com.dan.dao;
 import com.dan.bean.Emp;
 import org.apache.ibatis.annotations.Insert;
 
+import java.util.ArrayList;
+
 /**
  * @author lizhenyang
  * @desc
@@ -18,4 +20,6 @@ public interface EmpDao {
     Integer delete(Integer empno);
 
     Emp selectEmpByEmpno(Integer empno);
+
+
 }
