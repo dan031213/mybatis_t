@@ -12,6 +12,8 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author lizhenyang
@@ -54,6 +56,19 @@ public class MyTest {
         sqlSession.close();
     }
 
+
+
+    @Test
+    public void selectAllAccountToMap() {
+
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        AccountDao mapper = sqlSession.getMapper(AccountDao.class);
+        System.out.println(mapper);
+        Map<String, Account> stringAccountMap = mapper.selectAllToMap();
+        System.out.println(stringAccountMap);
+        sqlSession.close();
+    }
+
     @Test
     public void testSave() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -72,6 +87,44 @@ public class MyTest {
         AccountDao mapper = sqlSession.getMapper(AccountDao.class);
         System.out.println(mapper);
         Account account = mapper.selectById(2);
+        System.out.println(account);
+        sqlSession.close();
+    }
+
+    @Test
+    public void testSelectAccountByNameAndPwd() {
+
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        AccountDao mapper = sqlSession.getMapper(AccountDao.class);
+        System.out.println(mapper);
+        ArrayList<Account> accountArrayList = mapper.selectAccountByNameAndPwd("dabaomei", "123456");
+        System.out.println(accountArrayList);
+        sqlSession.close();
+    }
+
+    @Test
+    public void testSelectAccountByNameAndPwd2() {
+
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        AccountDao mapper = sqlSession.getMapper(AccountDao.class);
+        System.out.println(mapper);
+        Map<String, String> objectObjectMap = new HashMap<String, String>();
+        objectObjectMap.put("loginName", "dabaomei");
+        objectObjectMap.put("password", "123456");
+
+        ArrayList<Account> accountArrayList = mapper.selectAccountByNameAndPwd2(objectObjectMap);
+        System.out.println(accountArrayList);
+        sqlSession.close();
+    }
+
+    @Test
+    public void testSaveAccount() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        AccountDao mapper = sqlSession.getMapper(AccountDao.class);
+        Account account = new Account();
+        account.setLoginName("dabaomei");
+        account.setPassword("123456");
+        System.out.println(mapper.addAccount(account));
         System.out.println(account);
         sqlSession.close();
     }

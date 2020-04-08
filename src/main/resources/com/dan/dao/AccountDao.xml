@@ -9,16 +9,49 @@
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
         <result column="age" jdbcType="INTEGER" property="age"/>
-<!--        <result column="location" jdbcType="VARCHAR" property="location"/>-->
+        <!--        <result column="location" jdbcType="VARCHAR" property="location"/>-->
         <result column="role" jdbcType="VARCHAR" property="role"/>
     </resultMap>
 
-
+    <!--    ${}<<<<<#{}  后者可以防止sql注入  or 1=1
+    ${} 适用于动态生成，比如传入表名
+    -->
     <select id="selectById" resultType="account">
         select * from account where id = #{id}
   </select>
 
-    <select id="selectAll" resultMap="BaseResultMap">
+    <!--      属性值匹配的话需要在接口类方法参数上 @Param-->
+    <select id="selectAccountByNameAndPwd2" resultType="account">
+        select * from account where password=#{password} and login_name=#{loginName}
+  </select>
+
+    <!--      属性值匹配的话-默认用的是map结构参考  select By map-->
+    <select id="selectAccountByNameAndPwd" resultType="account">
+        select * from account where password=#{password} and login_name=#{loginName}
+  </select>
+
+    <!--    <select id="selectAll" resultMap="BaseResultMap">-->
+    <!--        select * from account-->
+    <!--  </select>-->
+    <select id="selectAll" resultType="account">
         select * from account
   </select>
+
+    <!--    当需要返回的结果是一个map时，同时map中包含多个对象，此时需要用@mapkey注解来配合-->
+    <select id="selectAllToMap" resultType="account">
+        select * from account
+  </select>
+
+    <!--    login_name 必须写成数据库表的字段名，不能写成对象名-->
+    <insert id="addAccount" useGeneratedKeys="true" keyProperty="id">
+        insert into account (login_name,password) values (#{loginName},#{password})
+    </insert>
+
+
+
+
+    <!-- #############################resultmap-->
+
+
+
 </mapper>
